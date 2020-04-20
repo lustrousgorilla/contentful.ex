@@ -7,6 +7,7 @@ defmodule Contentful.Delivery.Entries do
   alias Contentful.CollectionStream
   alias Contentful.Delivery
   alias Contentful.Entry
+  alias Contentful.ContentType
   alias Contentful.SysData
   alias Contentful.Space
 
@@ -200,12 +201,24 @@ defmodule Contentful.Delivery.Entries do
 
   defp build_entry(%{
          "fields" => fields,
-         "sys" => %{"id" => id, "revision" => rev}
+         "sys" => %{
+           "id"=> id,
+           "revision" => rev,
+           "contentType" => %{
+             "sys" => %{
+               "id" => content_type_id
+             }
+           }
+         }
        }) do
     {:ok,
      %Entry{
        fields: fields,
-       sys: %SysData{id: id, revision: rev}
+       sys: %SysData{
+         id: id,
+         revision: rev,
+         content_type: %ContentType{id: content_type_id}
+       }
      }}
   end
 end

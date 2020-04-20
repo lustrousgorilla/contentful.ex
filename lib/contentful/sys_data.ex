@@ -5,10 +5,14 @@ defmodule Contentful.SysData do
 
   See the [official documentation for more information](https://www.contentful.com/developers/docs/references/content-delivery-api/#/reference/locales).
   """
-  defstruct [:id, :revision, :version]
+
+  alias Contentful.ContentType
+
+  defstruct [:id, :content_type, :revision, :version]
 
   @type t :: %Contentful.SysData{
           id: String.t(),
+          content_type: ContentType.t(),
           revision: integer() | nil,
           version: integer() | nil
         }
