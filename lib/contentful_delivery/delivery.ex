@@ -146,11 +146,11 @@ defmodule Contentful.Delivery do
         = collection_query_params(limit: 50, baz: "foo", skip: 25, order: "foobar", bar: 42)
 
   """
-  @spec collection_query_params(limit: pos_integer(), skip: non_neg_integer()) :: String.t()
+  @spec collection_query_params(limit: pos_integer(), skip: non_neg_integer(), content_type: String.t()) :: String.t()
   def collection_query_params(options) do
     params =
       options
-      |> Keyword.take([:limit, :skip])
+      |> Keyword.take([:limit, :skip, :content_type])
       |> URI.encode_query()
 
     "?#{params}"
